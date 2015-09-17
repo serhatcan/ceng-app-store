@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{view.index.title}">Welcome!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"
+          th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/core.css" rel="stylesheet" media="screen" th:href="@{/resources/css/core.css}"/>
+    <link href="../../../resources/css/sidebar.css" rel="stylesheet" media="screen"
+          th:href="@{/resources/css/sidebar.css}"/>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div id="wrapper">
+    <div th:replace="fragments/header :: header">&nbsp;</div>
+    <div th:replace="fragments/sidebar :: sidebar" id="sidebar-wrapper">Sidebar</div>
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <!--<div class="container">-->
+
+                <!-- /* Handle the flash message */-->
+                <th:block th:if="${message != null}">
+                    <!-- /* The message code is returned from the @Controller */ -->
+                    <div th:replace="fragments/alert :: alert (type=${#strings.toLowerCase(message.type)}, message=#{${message.message}(${#authentication.name})})">
+                        &nbsp;</div>
+                </th:block>
+
+                <div class="row">
+                    <div>
+                        <div class="col-md-3" style="width: 150px; height: 250px;" th:each="app : ${apps}">
+                            <img src="/resources/images/app-icon.png" class="img-responsive" style="width:150px; height: 150px" />
+                            <div class="text-center" style="font-size: 16px;"><a th:href="@{'/app/'+${app.id}+'/'+${app.title}}" th:text="${app.title}">title</a></div>
+                            <div class="text-center" style="font-size: 15px;" th:text="'Price: '+${app.price}">Price</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer">Footer</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen"
+          th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/css/sidebar.css" rel="stylesheet" media="screen"
+          th:href="@{/resources/css/sidebar.css}"/>
+
+</head>
+<body>
+<!-- Sidebar -->
+<div id="sidebar-wrapper" th:fragment="sidebar">
+    <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+            <a href="/">
+                Categories
+            </a>
+        </li>
+        <li th:each="category : ${categories}">
+            <a th:href="@{'/category/'+${category.id}+'/'+${category.title}}"
+               th:text="${category.title}+'('+${category.count}+')'"
+               th:alt-title="${category.description}"
+               th:class="(${activeCategoryId}==${category.id} ? 'active' : '')"></a>
+        </li>
+    </ul>
+</div>
+<!-- /#sidebar-wrapper -->
+</body>
+</html>
